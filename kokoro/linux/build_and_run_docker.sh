@@ -20,17 +20,17 @@ cd -
 if [ -z "$DOCKERHUB_ORGANIZATION" ]
 then
   DOCKERHUB_ORGANIZATION=grpctesting/protobuf
-  DOCKER_IMAGE_NAME=${DOCKERHUB_ORGANIZATION}_$(sha1sum $DOCKERFILE_DIR/Dockerfile | cut -f1 -d\ )
+  DOCKER_IMAGE_NAME=docker.io/grpctesting/protobuf
 else
   # TODO(teboring): Remove this when all tests have been migrated to separate
   # docker images.
   DOCKERFILE_PREFIX=$(basename $DOCKERFILE_DIR)
-  DOCKER_IMAGE_NAME=${DOCKERHUB_ORGANIZATION}/${DOCKERFILE_PREFIX}_$(sha1sum $DOCKERFILE_DIR/Dockerfile | cut -f1 -d\ )
+  DOCKER_IMAGE_NAME=docker.io/grpctesting/protobuf
 fi
 
 # Pull dockerimage from Dockerhub. This sometimes fails intermittently, so we
 # keep trying until we succeed.
-until docker pull $DOCKER_IMAGE_NAME; do sleep 10; done
+# until docker pull $DOCKER_IMAGE_NAME; do sleep 10; done
 
 # Ensure existence of ccache directory
 CCACHE_DIR=/tmp/protobuf-ccache
@@ -57,7 +57,7 @@ docker run \
   bash -l "/var/local/kokoro/protobuf/$DOCKER_RUN_SCRIPT" || FAILED="true"
 
 # remove the container, possibly killing it first
-docker rm -f $CONTAINER_NAME || true
+# docker rm -f $CONTAINER_NAME || true
 
 [ -z "$FAILED" ] || {
   exit 1

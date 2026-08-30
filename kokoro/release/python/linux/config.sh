@@ -32,6 +32,9 @@ function bdist_wheel_cmd {
     # https://github.com/warner/python-versioneer/issues/121
     local abs_wheelhouse=$1
 
+    # Pin wheel version for reproducible builds
+    pip install wheel==0.34.2
+
     # Modify build version
     pwd
     ls

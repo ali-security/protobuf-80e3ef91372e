@@ -315,7 +315,7 @@ build_python() {
   else
     envlist=py27-python
   fi
-  tox -e $envlist
+  PIP_TRUSTED_HOST="pypi.python.org pypi.org files.pythonhosted.org" tox -e $envlist
   cd ..
 }
 
@@ -323,7 +323,7 @@ build_python_version() {
   internal_build_cpp
   cd python
   envlist=$1
-  tox -e $envlist
+  PIP_TRUSTED_HOST="pypi.python.org pypi.org files.pythonhosted.org" tox -e $envlist
   cd ..
 }
 
@@ -365,7 +365,7 @@ build_python_cpp() {
   else
     envlist=py27-cpp
   fi
-  tox -e $envlist
+  PIP_TRUSTED_HOST="pypi.python.org pypi.org files.pythonhosted.org" tox -e $envlist
   cd ..
 }
 
@@ -375,7 +375,7 @@ build_python_cpp_version() {
   export DYLD_LIBRARY_PATH=../src/.libs # for OS X
   cd python
   envlist=$1
-  tox -e $envlist
+  PIP_TRUSTED_HOST="pypi.python.org pypi.org files.pythonhosted.org" tox -e $envlist
   cd ..
 }
 

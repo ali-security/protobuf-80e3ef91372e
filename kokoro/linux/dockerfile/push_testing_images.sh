@@ -15,7 +15,7 @@ do
   # contents of the docker image always changes the SHA (e.g. using "ADD file"
   # cmd in the dockerfile in not ok as contents of the added file will not be
   # reflected in the SHA).
-  DOCKER_IMAGE_NAME=$(basename $DOCKERFILE_DIR)_$(sha1sum $DOCKERFILE_DIR/Dockerfile | cut -f1 -d\ )
+  DOCKER_IMAGE_NAME=docker.io/grpctesting/protobuf
 
   echo $DOCKER_IMAGE_NAME
   # skip the image if it already exists in the repo
