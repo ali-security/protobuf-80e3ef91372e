@@ -1147,7 +1147,7 @@ def _AddMergeFromStringMethod(message_descriptor, cls):
   local_SkipField = decoder.SkipField
   decoders_by_tag = cls._decoders_by_tag
 
-  def InternalParse(self, buffer, pos, end):
+  def InternalParse(self, buffer, pos, end, current_depth=0):
     """Create a message from serialized bytes.
 
     Args:
@@ -1198,7 +1198,7 @@ def _AddMergeFromStringMethod(message_descriptor, cls):
             (tag_bytes, buffer[old_pos:new_pos].tobytes()))
         pos = new_pos
       else:
-        pos = field_decoder(buffer, new_pos, end, self, field_dict)
+        pos = field_decoder(buffer, new_pos, end, self, field_dict, current_depth)
         if field_desc:
           self._UpdateOneofState(field_desc)
     return pos
